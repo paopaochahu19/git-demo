@@ -1,0 +1,22 @@
+本项目采用JSP和Servlet技术框架的完成项目。项目使用数据库技术，MySQL或者Oracle，来实现数据的高效存储和管理。通过这样的技术组合，构建一个强大的后端系统，以支持丰富的前端功能。
+
+相关数据库方面
+建立用户表，存储用户和密码
+CREATE TABLE diary_users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+建立日记本
+CREATE TABLE diaries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    content LONGTEXT NOT NULL,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (username) REFERENCES diary_users(username) ON DELETE CASCADE
+);
+
+补充：ALTER TABLE diary_users ADD CONSTRAINT UNIQUE (username);
+
+jsp思路：制作一个日记本项目，日记本必须是隐私的，你要先注册用户和密码，如果要注册的用户名已存在则返回用户已经存在的提示，然后你需要登录账号才能使用日记本，日记本没有账户注册和输入正确的密码都不能查看，因为它是一个隐私类！
